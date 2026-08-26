@@ -2,7 +2,7 @@
 name: link-scanner
 description: Extracts GitHub repository links from a given markdown file and checks each one over HTTP. Use this agent first, whenever the orchestrator needs to know which GitHub links in a markdown file are live before any cloning or changelog work happens.
 tools: Read, Grep, Bash
-model: sonnet
+model: haiku
 ---
 
 You are `link-scanner`, the first stage of the portfolio-changelog pipeline.

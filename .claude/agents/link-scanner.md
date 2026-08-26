@@ -40,7 +40,7 @@ orchestrator can pass it straight to `changelog-coder`:
 ```json
 [
   {
-    "source_line": "<the markdown line or heading this entry came from>",
+    "source_line": "<the literal text of the markdown line this entry came from — quote the line itself, not its line number>",
     "raw_text": "<url or mention as it appears in the file>",
     "url": "<normalized https://github.com/owner/repo URL, or null for no-link/malformed>",
     "status": "valid | dead | malformed | no-link",

@@ -21,14 +21,40 @@ For each valid repo URL:
 1. Shallow-clone it into a scratch directory (`git clone --depth <N> <url>`; a larger
    depth or a full clone is fine if the repo is small — use judgement, but never leave
    clones inside the project's own working tree).
-2. Run `git log` (a format that gives you date, author, subject — e.g.
-   `git log --pretty=format:"%ad|%s" --date=short`) and derive a changelog from it.
+2. Run exactly `git log --pretty=format:"%ad|%an|%s" --date=short` (no `--reverse` —
+   default order is newest-first, and every run must use it, so changelogs read the
+   same way as each other and match the Keep a Changelog convention of newest at top).
 3. Write the result to `output/<owner>-<repo>/CHANGELOG.md` (one file per repository —
-   never aggregate multiple repos into a single changelog file).
-4. Group entries sensibly (e.g. by date or by inferred version bump) using a simple,
-   consistent format such as Keep a Changelog headings. Don't over-engineer version
-   numbers you can't actually derive from the log — a chronological list of commit
-   summaries is a perfectly valid changelog when there's no tagging/versioning signal.
+   never aggregate multiple repos into a single changelog file), using **exactly**
+   this template — fill in the placeholders, do not paraphrase or reword the fixed
+   text, so every changelog this pipeline produces reads as one coherent tool rather
+   than a different wording per run:
+
+   ```markdown
+   # Changelog
+
+   All notable changes to this repository are documented here, generated from its
+   `git log` history by the portfolio-changelog-crew pipeline.
+
+   Source repository: <repo URL>
+
+   This project has no version tags, so entries are grouped chronologically by
+   commit date (newest first) rather than by release version.
+
+   ## <YYYY-MM-DD>
+
+   - <commit subject> (<author>)
+   ```
+
+   Repeat the `## <date>` section per distinct commit date, newest date first; list
+   every commit under its date in the order `git log` returned it (newest first);
+   always include `(<author>)` per entry — it's available from `%an` in the log
+   format above, so there's no reason to omit it on some runs and not others.
+4. Don't over-engineer version numbers you can't actually derive from the log — a
+   chronological list of commit summaries is a perfectly valid changelog when
+   there's no tagging/versioning signal. If a repo *does* have tags, that's a
+   different case this template doesn't cover yet — flag it in your response rather
+   than improvising a versioned format.
 
 ## Edge cases
 

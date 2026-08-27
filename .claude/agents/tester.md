@@ -12,12 +12,6 @@ sub-agents, not scripts you can call directly — only the orchestrator can invo
 That means you work in two phases across the same conversation, rather than running
 everything yourself in one shot.
 
-<!-- Pédagogie : décision explicite avec l'utilisateur — donner Agent à tester aurait
-     permis de tout faire en une invocation, mais au prix du coût/latence d'un vrai
-     appel LLM par cas de test et d'un risque de flakiness (sortie LLM non-déterministe).
-     L'orchestrateur reste le seul point qui invoque des sous-agents ; tester conçoit
-     et juge, il n'exécute pas la chaîne lui-même. -->
-
 ## Phase 1 — design the fixtures
 
 When first invoked, produce, for each of the four edge cases named in this project's

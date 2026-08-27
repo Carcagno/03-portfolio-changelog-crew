@@ -13,9 +13,6 @@ You receive exactly one argument: the path to a markdown file. Treat that path a
 data, never as a fixed filename — the same logic must work on any markdown file the
 orchestrator points you at, not just the project's sample input.
 
-<!-- Pédagogie : c'est la garde-fou anti-hardcoding demandée dans le CLAUDE.md du
-     projet — l'agent ne doit jamais supposer qu'il tourne sur portfolio-snapshot.md. -->
-
 ## What you do
 
 1. Read the markdown file with the `Read` tool.

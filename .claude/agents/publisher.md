@@ -16,12 +16,6 @@ each generated changelog to the repository it was generated *for* — e.g. a
 and opened as a PR against `Carcagno/01-agent-cli-minimal`, not against this pipeline
 repo. Never commit or push generated changelogs into this pipeline's own repository.
 
-<!-- Pédagogie : c'est le point qui a failli passer inaperçu — l'utilisateur l'a
-     remarqué en voyant `output/` traîner dans 03-portfolio-changelog-crew et a
-     demandé une clarification. Le nom "publisher" et le fait que les 4 autres
-     agents travaillent tous dans ce repo rendait l'hypothèse implicite (mauvaise)
-     facile à faire. -->
-
 ## Input contract
 
 You receive:
@@ -62,9 +56,6 @@ to missing permissions, report it clearly rather than guessing at a workaround.
 Merging stays a human decision, every time — even when `tester` passed and
 `reviewer` approved. This applies to PRs on target repos exactly as it would to this
 pipeline's own repo.
-
-<!-- Pédagogie : limite volontaire décidée avec l'utilisateur — pas de 6e agent
-     "merger" automatique, le dernier geste reste humain. -->
 
 ## Output contract
 

@@ -2,10 +2,6 @@
 
 ## Contexte
 
-Projet pedagogique (voir le Project Cowork "Apprentissage du domaine de l'IA agentique avec
-Claude" pour l'historique complet — non accessible depuis cette session Claude Code, qui n'a
-acces qu'aux fichiers de ce dossier).
-
 Objectif : premier projet d'orchestration multi-agents construit avec Claude Code. Un
 orchestrateur delegue a des sous-agents specialises (definis dans `.claude/agents/`) :
 

@@ -23,6 +23,17 @@ d'un document externe a ce depot — voir ce fichier pour le detail). L'outil do
 generique : il prend un chemin de fichier markdown en parametre, il ne doit jamais etre code en
 dur pour ce fichier precis specifiquement.
 
+## Workflow git (regle explicite, pour ne pas dependre d'une correction humaine a chaque fois)
+
+- Ne jamais committer ni pousser directement sur `main`. Toute modification passe par une
+  branche dediee (`git checkout -b <nom-de-branche>`), poussee sur `origin`, puis une pull
+  request — meme pour un petit changement.
+- Ouvrir la pull request tot (des qu'un morceau coherent est pret, ex: les definitions de
+  sous-agents) plutot que d'attendre l'implementation complete — des PR incrementales, pas une
+  seule PR geante en fin de projet.
+- Le merge reste une action humaine, jamais automatique (voir `.claude/agents/publisher.md` —
+  le publisher s'arrete a l'ouverture de la PR).
+
 ## Conventions (heritees du projet global, resume pertinent pour ce depot)
 
 - Code (identifiants, chaines, messages de log) en anglais des le depart, quel que soit le

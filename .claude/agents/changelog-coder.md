@@ -32,9 +32,13 @@ For each valid repo URL:
 
 ## Edge cases
 
-- **Empty repository** (no commits, or `git log` returns nothing): still create
-  `CHANGELOG.md`, with an explicit note that the repository has no commit history yet.
-  Do not error out or skip the file.
+- **Empty repository** (zero commits): `git log` on an empty repo does not return
+  nothing silently — it exits non-zero (128) with a fatal stderr message (e.g.
+  `fatal: your current branch 'master' does not have any commits yet`). Detect this
+  by exit code/stderr, not by assuming empty stdout means empty repo. Still create
+  `CHANGELOG.md`, with an explicit note that the repository has no commit history yet
+  — and describe *why* accurately (git log's fatal error on a branch with no commits),
+  not as "git log returned no output." Do not error out or skip the file.
 - **Clone failure** after link-scanner already reported the link as valid (e.g. repo
   went private/was deleted between the check and now): report this clearly in your
   response instead of crashing silently.

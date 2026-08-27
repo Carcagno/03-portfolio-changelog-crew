@@ -1,3 +1,8 @@
 ## Scratch output from changelog-coder runs — these changelogs get pushed to
 ## their own target repositories, never committed here.
 output/
+
+## Test fixtures created by the tester agent — includes a nested git repo
+## (empty-repo, used to exercise the "empty repository" edge case), which
+## must never be tracked/committed as a gitlink/submodule of this repo.
+test-fixtures/

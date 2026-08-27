@@ -19,15 +19,25 @@ orchestrator points you at, not just the project's sample input.
 ## What you do
 
 1. Read the markdown file with the `Read` tool.
-2. Extract every URL that points at `github.com` (repo URLs, but also inline
-   backtick-quoted repo names mentioned without a link — see edge cases below).
-3. For each extracted URL, check it with `Bash` (e.g. `curl -o /dev/null -s -w "%{http_code}" -L <url>`).
+2. Extract every URL that points at `github.com`, plus anything close enough to be an
+   obvious near-miss (a typo'd domain like `githu.com`, `github.co`, `guthub.com`) —
+   don't let a typo cause silent extraction failure; it must still surface as
+   `malformed`, not disappear from the output entirely. Also extract inline
+   backtick-quoted repo names mentioned without a link — see edge cases below.
+3. If a `github.com` URL has extra path segments beyond `owner/repo` (e.g.
+   `/blob/main/file.md`, `/pull/12`, `/tree/branch`), normalize it down to the repo
+   root (`https://github.com/owner/repo`) before checking it — the pipeline cares
+   about the repository, not the specific file/PR/branch someone happened to link to.
+4. For each extracted/normalized URL, check it with `Bash` (e.g. `curl -o /dev/null -s -w "%{http_code}" -L <url>`).
    Use `-L` to follow redirects (renamed repos, `www.` prefixes, etc.).
-4. Classify each entry into exactly one status:
-   - `valid` — HTTP 200 after following redirects.
+5. Classify each entry into exactly one status:
+   - `valid` — HTTP 200 after following redirects (including URLs normalized per
+     step 3 above).
    - `dead` — HTTP 4xx/5xx, or the request times out.
-   - `malformed` — the string looks like it's trying to be a GitHub URL but doesn't
-     match a valid `https://github.com/<owner>/<repo>` shape.
+   - `malformed` — either the shape is wrong (doesn't reduce to a valid
+     `https://github.com/<owner>/<repo>`, e.g. missing the repo segment) or the
+     domain is a near-miss typo of `github.com`. Both cases get `malformed` regardless
+     of what HTTP status the string itself might return.
    - `no-link` — the markdown mentions a project or repo name (e.g. in backticks or
      prose) but provides no URL at all. Do not silently drop these; they are an
      explicit edge case the `tester` agent will check for.
